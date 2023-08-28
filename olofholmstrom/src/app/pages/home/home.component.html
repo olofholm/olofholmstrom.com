@@ -5,9 +5,14 @@
         <mat-label>Message</mat-label>
         <input matInput placeholder="Type a message..." [(ngModel)]="message">
     </mat-form-field>
-    <button mat-raised-button (click)="sendMessage(message)" style="width: 100px;">SEND</button>
+    <div style="width: 250px; display: flex; justify-content: space-between;">
+        <button mat-raised-button (click)="sendMessage(message)" style="width: 100px;">SEND</button>
+        <button mat-raised-button (click)="clearChat()" style="width: 100px;">RESET</button>
+    </div>
 
-    <h3>Messages</h3>
-    <p>{{chat}}</p>
+    <h3>Messages:</h3>
+    <div *ngFor="let chat of chats" class="chat-container">
+        <p>{{chat}}</p>
+    </div>
 </div>
   

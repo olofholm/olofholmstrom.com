@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Database, ref, set, onValue, push } from '@angular/fire/database';
+import { Database, ref, set, onValue, push, remove } from '@angular/fire/database';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +9,22 @@ import { Database, ref, set, onValue, push } from '@angular/fire/database';
 export class HomeComponent implements OnInit {
 
   message : string = '';
-  chat : string = '';
+  chats : string[] = [];
 
   constructor ( private database : Database) {}
 
   ngOnInit(): void {
+    this.initChat();
+  }
+
+  initChat () {
     const updateRef = ref(this.database, 'messages/');
     onValue(updateRef, (snapshot) => {
+      this.chats = [];
       snapshot.forEach((child) => {
-        console.log(child.val());
-        this.chat = child.val()['message'];
-        console.log(this.chat);
+        this.chats.push(child.val()['message']);
       })
+      this.chats.reverse();
     });
   }
 
@@ -29,6 +33,13 @@ export class HomeComponent implements OnInit {
     const postRef = push(reference);
     set(postRef, {
       message
-    })
+    });
+
+    this.message = '';
+  }
+
+  clearChat () {
+    const reference = ref(this.database, 'messages/');
+    remove(reference);
   }
 }
