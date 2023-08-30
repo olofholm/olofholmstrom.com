@@ -15,11 +15,15 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { provideAuth, initializeAuth } from '@angular/fire/auth';
 import { indexedDBLocalPersistence } from 'firebase/auth';
+import { MessagesComponent } from './messages/messages.component';
+import { OpenaiComponent } from './openai/openai.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    MessagesComponent,
+    OpenaiComponent
   ],
   imports: [
     BrowserModule,
